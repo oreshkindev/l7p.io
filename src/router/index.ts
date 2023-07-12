@@ -5,6 +5,9 @@ import type { Router, RouteRecordRaw } from 'vue-router'
 import type { I18n } from 'vue-i18n'
 
 import Home from './views/home.vue'
+import FAQ from './views/faq.vue'
+import Bussines from './views/bussines.vue'
+import Company from './views/company.vue'
 import Aml from './views/aml.vue'
 import Privacy from './views/privacy-policy.vue'
 import Cookies from './views/cookies-policy.vue'
@@ -20,6 +23,21 @@ export function setupRouter(i18n: I18n): Router {
       path: '/:locale/',
       name: 'home',
       component: Home,
+    },
+    {
+      path: '/:locale/faq',
+      name: 'faq',
+      component: FAQ,
+    },
+    {
+      path: '/:locale/bussines',
+      name: 'bussines',
+      component: Bussines,
+    },
+    {
+      path: '/:locale/company',
+      name: 'company',
+      component: Company,
     },
     {
       path: '/:locale/aml',

@@ -37,17 +37,16 @@ watch(currentLocale, (val) => {
 <template>
   <header>
     <router-link custom v-slot="{ href, navigate }" :to="{ name: 'home', params: { locale } }">
-      <span @click="navigate" role="link">L7P</span>
+      <span @click="navigate" role="link">VOOLA PAY</span>
     </router-link>
 
     <nav>
-      <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
-        <path
-          d="M12.02 0c6.614.011 11.98 5.383 11.98 12 0 6.623-5.376 12-12 12-6.623 0-12-5.377-12-12 0-6.617 5.367-11.989 11.981-12h.039zm3.694 16h-7.427c.639 4.266 2.242 7 3.713 7 1.472 0 3.075-2.734 3.714-7m6.535 0h-5.523c-.426 2.985-1.321 5.402-2.485 6.771 3.669-.76 6.671-3.35 8.008-6.771m-14.974 0h-5.524c1.338 3.421 4.34 6.011 8.009 6.771-1.164-1.369-2.059-3.786-2.485-6.771m-.123-7h-5.736c-.331 1.166-.741 3.389 0 6h5.736c-.188-1.814-.215-3.925 0-6m8.691 0h-7.685c-.195 1.8-.225 3.927 0 6h7.685c.196-1.811.224-3.93 0-6m6.742 0h-5.736c.062.592.308 3.019 0 6h5.736c.741-2.612.331-4.835 0-6m-12.825-7.771c-3.669.76-6.671 3.35-8.009 6.771h5.524c.426-2.985 1.321-5.403 2.485-6.771m5.954 6.771c-.639-4.266-2.242-7-3.714-7-1.471 0-3.074 2.734-3.713 7h7.427zm-1.473-6.771c1.164 1.368 2.059 3.786 2.485 6.771h5.523c-1.337-3.421-4.339-6.011-8.008-6.771"
-        />
-      </svg>
+      <router-link :to="{ name: 'bussines', params: { locale } }">Business</router-link>
+      <!-- <router-link :to="{ name: 'company', params: { locale } }">Company</router-link> -->
+      <router-link :to="{ name: 'faq', params: { locale } }">F.A.Q</router-link>
 
-      <span>{{ currentLocale }}</span>
+      <a href="https://portal.vooladmcc.com/auth" target="_blank">Log In</a> <span>/</span>
+      <a href="https://portal.vooladmcc.com/auth/register/user" target="_blank">Sign Up</a>
     </nav>
   </header>
 
@@ -55,16 +54,20 @@ watch(currentLocale, (val) => {
 
   <footer>
     <nav>
-      <router-link :to="{ name: 'aml', params: { locale } }">L7P AML</router-link>
-      <router-link :to="{ name: 'privacy-policy', params: { locale } }">Privacy policy</router-link>
-      <router-link :to="{ name: 'cookies-policy', params: { locale } }">Cookies policy</router-link>
-      <router-link :to="{ name: 'terms-and-conditions', params: { locale } }">Terms and conditions</router-link>
-      <router-link :to="{ name: 'contact-us', params: { locale } }">Contact us</router-link>
-      © 2022 L7P LTD
+      <!-- <router-link :to="{ name: 'aml', params: { locale } }">L7P AML</router-link> -->
+      <!-- <router-link :to="{ name: 'privacy-policy', params: { locale } }">Privacy policy</router-link> -->
+      <!-- <router-link :to="{ name: 'cookies-policy', params: { locale } }">Cookies policy</router-link> -->
+      <!-- <router-link :to="{ name: 'terms-and-conditions', params: { locale } }">Terms and conditions</router-link> -->
+      <!-- <router-link :to="{ name: 'contact-us', params: { locale } }">Contact us</router-link> -->
+      <a href="https://portal.vooladmcc.com/legal/privacypolicy" target="_blank">Privacy policy</a>
+      <a href="https://portal.vooladmcc.com/legal/terms" target="_blank">Website Terms and Conditions</a>
+      <a href="https://portal.vooladmcc.com/legal/termsofuse" target="_blank">Terms of Use</a>
+
+      © 2023 VOOLA PAY
     </nav>
   </footer>
 
-  <div class="noise"></div>
+  <!-- <div class="noise"></div> -->
 </template>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -89,7 +92,7 @@ watch(currentLocale, (val) => {
 
 :root {
   // project color palete
-  --scheme-v1: #000000; // primary scheme
+  --scheme-v1: #111111; // primary scheme
   --scheme-v2: #ffffff;
   --scheme-v3: #4e94d7;
 
@@ -107,7 +110,7 @@ watch(currentLocale, (val) => {
   --scheme-min-height: 568px; // 5 SE
 
   // project default template gap
-  --scheme-gap: 40px;
+  --scheme-gap: 20px;
 
   // project ex. header & footer height
   --scheme-offset: 100px;
@@ -139,8 +142,6 @@ body {
   background: var(--scheme-v1);
   color: var(--scheme-v2);
 
-  cursor: crosshair;
-
   display: flex;
   flex-direction: column;
 
@@ -148,11 +149,12 @@ body {
 
   justify-content: space-between;
   margin: 0;
+  overflow-x: hidden;
   position: relative;
 
   // user-select: none;
   ::selection {
-    background: hsla(0, 0%, 100%, 0.2);
+    background: #ffffff90;
   }
 }
 
@@ -161,18 +163,46 @@ header {
   display: flex;
 
   span {
+    cursor: pointer;
     font: 300 var(--scheme-m) / 1.22 var(--scheme-font);
     margin: 0 auto 0 0;
+
+    &:first-child {
+      color: var(--scheme-v3);
+    }
   }
 
   nav {
     display: inherit;
-    gap: 20px;
+    gap: calc(var(--scheme-gap) * 2);
+    align-items: center;
+
+    svg {
+      margin: 0 -20px 0 20px;
+    }
+
+    a {
+      &:hover {
+        color: var(--scheme-v3);
+      }
+    }
 
     span {
       font: inherit;
       margin: 0;
       text-transform: capitalize;
+      cursor: default;
+      margin: 0 -30px;
+    }
+  }
+
+  @media only screen and (max-width: 928px) {
+    align-items: baseline;
+    flex-direction: column;
+    gap: 20px;
+
+    span {
+      margin: 0 0;
     }
   }
 }
@@ -192,16 +222,20 @@ footer {
 }
 
 section {
-  margin: 100px auto;
-
   h1 {
     font: 300 var(--scheme-h) / 1.22 var(--scheme-font);
     margin: 0 0 40px;
-    max-width: 520px;
+    max-width: 620px;
+  }
+
+  h1 {
+    span {
+      color: var(--scheme-v3);
+    }
   }
 
   h3 {
-    margin: 0 0 40px;
+    font: 300 var(--scheme-m) / 1.22 var(--scheme-font);
   }
 
   ul {
@@ -219,21 +253,32 @@ section {
 }
 
 footer {
+  margin: 100px auto 0;
+
   nav {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--scheme-gap);
+    gap: calc(var(--scheme-gap) * 2);
 
     a {
       border-bottom: 2px solid transparent;
 
       &.router-link-active,
       &:hover {
-        border-bottom: 2px solid hsla(0, 0%, 100%, 0.2);
+        border-bottom: 2px solid #ffffff90;
       }
 
-      &:nth-child(5) {
+      &:last-of-type {
         margin: 0 auto 0 0;
+      }
+    }
+
+    @media only screen and (max-width: 928px) {
+      flex-direction: column;
+      gap: 20px;
+
+      a {
+        width: fit-content;
       }
     }
   }
@@ -275,6 +320,10 @@ p {
   margin: 0;
 }
 
+p {
+  color: #ffffff90;
+}
+
 strong {
   font: inherit;
 }
@@ -284,7 +333,9 @@ ul {
   padding: 0;
 
   li {
-    list-style: none;
+    list-style: disc;
+    list-style-position: inside;
+    padding: 10px;
   }
 }
 
@@ -296,11 +347,6 @@ figure {
     display: block;
     // object-fit: cover;
     width: 100%;
-
-    @media only screen and (max-width: 928px) {
-      margin: auto;
-      max-width: 280px !important;
-    }
   }
 }
 
