@@ -7,12 +7,7 @@ import type { I18n } from 'vue-i18n'
 import Home from './views/home.vue'
 import FAQ from './views/faq.vue'
 import Bussines from './views/bussines.vue'
-import Company from './views/company.vue'
-import Aml from './views/aml.vue'
 import Privacy from './views/privacy-policy.vue'
-import Cookies from './views/cookies-policy.vue'
-import Terms from './views/terms-and-conditions.vue'
-import Contact from './views/contact-us.vue'
 
 export function setupRouter(i18n: I18n): Router {
   const locale = getLocale(i18n)
@@ -35,34 +30,9 @@ export function setupRouter(i18n: I18n): Router {
       component: Bussines,
     },
     {
-      path: '/:locale/company',
-      name: 'company',
-      component: Company,
-    },
-    {
-      path: '/:locale/aml',
-      name: 'aml',
-      component: Aml,
-    },
-    {
       path: '/:locale/privacy-policy',
       name: 'privacy-policy',
       component: Privacy,
-    },
-    {
-      path: '/:locale/cookies-policy',
-      name: 'cookies-policy',
-      component: Cookies,
-    },
-    {
-      path: '/:locale/terms-and-conditions',
-      name: 'terms-and-conditions',
-      component: Terms,
-    },
-    {
-      path: '/:locale/contact-us',
-      name: 'contact-us',
-      component: Contact,
     },
     {
       path: '/:pathMatch(.*)*',

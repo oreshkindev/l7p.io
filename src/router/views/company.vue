@@ -15,7 +15,4 @@ const { t } = useI18n()
 </template>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" scoped>
-main {
-}
-</style>
+<style scoped></style>

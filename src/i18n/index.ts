@@ -3,7 +3,7 @@ import { createI18n } from 'vue-i18n'
 
 import type { I18n, I18nOptions, Locale, VueI18n, Composer } from 'vue-i18n'
 
-export const SUPPORT_LOCALES = ['ru', 'en']
+export const SUPPORT_LOCALES = ['ru', 'en', 'zh']
 
 export function getLocale(i18n: I18n): string {
   return i18n.mode === 'legacy' ? (i18n.global as unknown as VueI18n).locale : (i18n.global as unknown as Composer).locale.value
@@ -17,7 +17,7 @@ export function setLocale(i18n: I18n, locale: Locale): void {
   }
 }
 
-export function setupI18n(options: I18nOptions = { locale: 'ru' }): I18n {
+export function setupI18n(options: I18nOptions = { locale: 'zh' }): I18n {
   const i18n = createI18n(options)
   setI18nLanguage(i18n, options.locale!)
   return i18n

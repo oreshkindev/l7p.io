@@ -8,6 +8,8 @@ import { useRouter } from 'vue-router'
 const { t, locale } = useI18n() // same as `useI18n({ useScope: 'global' })`
 const router = useRouter()
 
+const visible = ref(false)
+
 /**
  * select locale value for language select form
  *
@@ -36,16 +38,24 @@ watch(currentLocale, (val) => {
 
 <template>
   <header>
-    <router-link custom v-slot="{ href, navigate }" :to="{ name: 'home', params: { locale } }">
-      <span @click="navigate" role="link">VOOLA PAY</span>
-    </router-link>
+    <nav :class="{ visible: visible }" v-outside="() => (visible = false)">
+      <router-link :to="{ name: 'home', params: { locale } }" @click="visible = false">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 59.83" width="83" height="25">
+          <path
+            fill="var(--color-theme)"
+            d="M200 59.83s-44.13-48.2-46.97-51.04c-2.85-2.85-6.17-5.05-9.88-6.56C139.57.78 135.79.04 131.92.04s-7.65.74-11.23 2.19c-3.71 1.5-7.03 3.71-9.88 6.56l-.09.09-6.99 7.62 8.92 8.57 7-7.63c6.83-6.73 17.85-6.7 24.64.09 3.3 3.3 5.12 7.69 5.12 12.36s-1.82 9.06-5.12 12.36c-6.79 6.79-17.82 6.82-24.64.09L89.03 8.98l-.09-.1-.09-.09C86 5.94 82.68 3.74 78.97 2.23 75.38.78 71.61.04 67.73.04S60.08.78 56.5 2.23c-3.71 1.5-7.03 3.71-9.88 6.56-2.85 2.85-5.05 6.17-6.56 9.88-.67 1.64-1.18 3.33-1.54 5.04L16.79 0H0s43.77 48.16 46.62 51.01c2.85 2.85 6.17 5.05 9.88 6.56 3.58 1.45 7.36 2.19 11.23 2.19s7.65-.74 11.23-2.19c3.71-1.5 7.03-3.71 9.88-6.56l.09-.09 7-7.63-8.44-9.12L80 42.35c-6.83 6.73-17.85 6.7-24.64-.09s-6.82-17.91 0-24.73c6.79-6.79 17.82-6.82 24.64-.09l30.61 33.37.09.1.09.09c2.85 2.85 6.17 5.05 9.88 6.56 3.58 1.45 7.36 2.19 11.23 2.19s7.65-.74 11.23-2.19c3.71-1.5 7.03-3.71 9.88-6.56 2.85-2.85 5.05-6.17 6.56-9.88.7-1.73 1.24-3.51 1.6-5.32l22.03 24.02h16.79Z"
+          />
+        </svg>
+        <span>+ PAY</span>
+      </router-link>
 
-    <nav>
-      <router-link :to="{ name: 'bussines', params: { locale } }">Business</router-link>
-      <!-- <router-link :to="{ name: 'company', params: { locale } }">Company</router-link> -->
-      <router-link :to="{ name: 'faq', params: { locale } }">F.A.Q</router-link>
+      <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" viewBox="0 0 16 16" @click="visible = !visible">
+        <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+      </svg>
 
-      <a href="https://portal.vooladmcc.com/auth" target="_blank">Log In</a> <span>/</span>
+      <router-link :to="{ name: 'bussines', params: { locale } }" @click="visible = false">Business</router-link>
+      <router-link :to="{ name: 'faq', params: { locale } }" @click="visible = false">F.A.Q</router-link>
+      <a href="https://portal.vooladmcc.com/auth" target="_blank">Log In</a>
       <a href="https://portal.vooladmcc.com/auth/register/user" target="_blank">Sign Up</a>
     </nav>
   </header>
@@ -54,257 +64,48 @@ watch(currentLocale, (val) => {
 
   <footer>
     <nav>
-      <!-- <router-link :to="{ name: 'aml', params: { locale } }">L7P AML</router-link> -->
-      <!-- <router-link :to="{ name: 'privacy-policy', params: { locale } }">Privacy policy</router-link> -->
-      <!-- <router-link :to="{ name: 'cookies-policy', params: { locale } }">Cookies policy</router-link> -->
-      <!-- <router-link :to="{ name: 'terms-and-conditions', params: { locale } }">Terms and conditions</router-link> -->
-      <!-- <router-link :to="{ name: 'contact-us', params: { locale } }">Contact us</router-link> -->
-      <a href="https://portal.vooladmcc.com/legal/privacypolicy" target="_blank">Privacy policy</a>
+      <router-link :to="{ name: 'privacy-policy', params: { locale } }">Privacy policy</router-link>
       <a href="https://portal.vooladmcc.com/legal/terms" target="_blank">Website Terms and Conditions</a>
       <a href="https://portal.vooladmcc.com/legal/termsofuse" target="_blank">Terms of Use</a>
 
-      © 2023 VOOLA PAY
+      <span>© 2023 VOOLA PAY</span>
     </nav>
   </footer>
-
-  <!-- <div class="noise"></div> -->
 </template>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@font-face {
-  font-family: 'Renner*';
-  src: local('./assets/fonts/renner-light'), url('./assets/fonts/renner-light.otf') format('opentype');
-  font-weight: 300;
-}
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300&family=Noto+Sans:wght@300&display=swap');
 
-@font-face {
-  font-family: 'Renner*';
-  src: local('./assets/fonts/renner-book'), url('./assets/fonts/renner-book.otf') format('opentype');
-  font-weight: 400;
-}
-
-@font-face {
-  font-family: 'Renner*';
-  src: local('./assets/fonts/renner-medium'), url('./assets/fonts/renner-medium.otf') format('opentype');
-  font-weight: 500;
-}
-
+/* semantic color variables for this project */
 :root {
-  // project color palete
-  --scheme-v1: #111111; // primary scheme
-  --scheme-v2: #ffffff;
-  --scheme-v3: #4e94d7;
+  --border-radius: 50px;
 
-  // project font-family
-  --scheme-font: 'Renner*', 'Helvetica', sans-serif;
-  --scheme-h: 76px;
-  --scheme-m: 32px;
-  --scheme-s: 18px;
+  --color-background: #0a0b0d;
 
-  // project default template width
-  --scheme-max-width: 1280px; // desktop
-  --scheme-min-width: 320px; // 5 SE
+  --color-foreground: #18191b;
 
-  // project default template height
-  --scheme-min-height: 568px; // 5 SE
+  --color-text: #ffffff;
 
-  // project default template gap
-  --scheme-gap: 20px;
+  --color-theme: #4e94d7;
 
-  // project ex. header & footer height
-  --scheme-offset: 100px;
+  --font: 15px;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+  --font-family: 'Noto Sans', 'Noto Sans SC', sans-serif;
+
+  --section-gap: 20px;
+
+  --section-width: 1420px;
 }
 
-@media only screen and (max-width: 928px) {
-  :root {
-    --scheme-h: 42px;
-    --scheme-m: 26px;
-  }
-}
+/* 
+  resset
+*/
 
 * {
   box-sizing: border-box;
-}
-
-html,
-body {
-  height: 100%;
-}
-
-body {
-  background: var(--scheme-v1);
-  color: var(--scheme-v2);
-
-  display: flex;
-  flex-direction: column;
-
-  font: 300 17px / 1.64 var(--scheme-font);
-
-  justify-content: space-between;
   margin: 0;
-  overflow-x: hidden;
-  position: relative;
-
-  // user-select: none;
-  ::selection {
-    background: #ffffff90;
-  }
-}
-
-header {
-  align-items: center;
-  display: flex;
-
-  span {
-    cursor: pointer;
-    font: 300 var(--scheme-m) / 1.22 var(--scheme-font);
-    margin: 0 auto 0 0;
-
-    &:first-child {
-      color: var(--scheme-v3);
-    }
-  }
-
-  nav {
-    display: inherit;
-    gap: calc(var(--scheme-gap) * 2);
-    align-items: center;
-
-    svg {
-      margin: 0 -20px 0 20px;
-    }
-
-    a {
-      &:hover {
-        color: var(--scheme-v3);
-      }
-    }
-
-    span {
-      font: inherit;
-      margin: 0;
-      text-transform: capitalize;
-      cursor: default;
-      margin: 0 -30px;
-    }
-  }
-
-  @media only screen and (max-width: 928px) {
-    align-items: baseline;
-    flex-direction: column;
-    gap: 20px;
-
-    span {
-      margin: 0 0;
-    }
-  }
-}
-
-header,
-section,
-footer {
-  padding: var(--scheme-gap);
-}
-
-header,
-section,
-footer {
-  margin: 0 auto;
-  max-width: var(--scheme-max-width);
-  width: 100%;
-}
-
-section {
-  h1 {
-    font: 300 var(--scheme-h) / 1.22 var(--scheme-font);
-    margin: 0 0 40px;
-    max-width: 620px;
-  }
-
-  h1 {
-    span {
-      color: var(--scheme-v3);
-    }
-  }
-
-  h3 {
-    font: 300 var(--scheme-m) / 1.22 var(--scheme-font);
-  }
-
-  ul {
-    span {
-      display: block;
-      margin: 0 0 20px;
-    }
-  }
-
-  p {
-    font: 300 var(--scheme-s) / 1.72 var(--scheme-font);
-    margin: 0 0 20px;
-    max-width: 572px;
-  }
-}
-
-footer {
-  margin: 100px auto 0;
-
-  nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: calc(var(--scheme-gap) * 2);
-
-    a {
-      border-bottom: 2px solid transparent;
-
-      &.router-link-active,
-      &:hover {
-        border-bottom: 2px solid #ffffff90;
-      }
-
-      &:last-of-type {
-        margin: 0 auto 0 0;
-      }
-    }
-
-    @media only screen and (max-width: 928px) {
-      flex-direction: column;
-      gap: 20px;
-
-      a {
-        width: fit-content;
-      }
-    }
-  }
-}
-
-h1,
-h2,
-h3,
-h4,
-h5 {
-  font-weight: 300;
-  margin: 0;
-}
-
-h1 {
-  font: 300 var(--scheme-h) / 1.42 var(--scheme-font);
-}
-
-h2 {
-  font: 300 var(--scheme-m) / 1.42 var(--scheme-font);
-
-  margin: 0 0 40px;
-}
-
-h3 {
-  font: 400 var(--scheme-s) / 1.42 var(--scheme-font);
+  padding: 0;
 }
 
 a {
@@ -312,127 +113,195 @@ a {
   text-decoration: none;
 }
 
-b {
-  font-weight: 400;
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font: 300 var(--font) / 1.64 var(--font-family);
+  transition: color 0.3s, background-color 0.3s;
+}
+
+h1 {
+  font: 300 72px / 1.32 var(--font-family);
+}
+
+h3 {
+  font: 300 42px / 1.32 var(--font-family);
+}
+
+h4 {
+  font: 300 18px / 1.32 var(--font-family);
+}
+
+img {
+  display: inherit;
+  width: 100%;
 }
 
 p {
-  margin: 0;
+  color: #ffffff60;
+  text-align: justify;
 }
 
-p {
-  color: #ffffff90;
-}
-
-strong {
-  font: inherit;
-}
-
-ul {
-  margin: 0;
-  padding: 0;
-
-  li {
-    list-style: disc;
-    list-style-position: inside;
-    padding: 10px;
-  }
-}
-
-picture,
-figure {
-  margin: 0;
-
-  img {
-    display: block;
-    // object-fit: cover;
-    width: 100%;
-  }
-}
-
-svg {
-  fill: var(--scheme-v2);
-  vertical-align: middle;
-}
-
-input,
-button {
-  background: none;
-  border: none;
-  box-shadow: none;
-
-  font: var(--scheme-font);
-
-  margin: 0;
-  outline: none;
-  padding: 0;
-}
-
-// set default button properties
-button,
-.button {
-  background-color: var(--scheme-v3);
-  border-radius: 50px;
-  color: var(--scheme-v2);
-
-  cursor: pointer;
-
+picture {
   display: inline-block;
-
-  font-size: var(--scheme-s);
-  margin: 40px 0;
-  padding: 16px 80px;
 }
 
-.noise {
-  position: fixed;
-  top: -50%;
-  left: -50%;
-  right: -50%;
-  bottom: -50%;
-  width: 200%;
-  height: 200vh;
-  background: transparent url('http://assets.iceable.com/img/noise-transparent.png') repeat 0 0;
-  background-repeat: repeat;
-  animation: noise 0.2s infinite;
-  opacity: 0.9;
-  visibility: visible;
-  z-index: -1;
+::selection {
+  background: #4e95d720;
 }
 
-@keyframes noise {
-  0% {
-    transform: translate(0, 0);
+/* 
+  header
+*/
+
+header {
+  background-color: var(--color-foreground);
+  box-shadow: -5px 5px 25px 5px #00000080;
+  inset: 0 auto auto;
+  position: sticky;
+  z-index: 9;
+}
+
+header > nav {
+  margin: auto;
+  max-width: var(--section-width);
+}
+
+header > nav {
+  padding: var(--section-gap);
+}
+
+header > nav {
+  display: flex;
+  gap: var(--section-gap);
+  place-items: center baseline;
+}
+
+header > nav > svg {
+  display: none;
+}
+
+header > nav > a {
+  border: 2px solid;
+  border-color: #0000;
+}
+
+header > nav > a:hover {
+  border-color: #0000 #0000 var(--color-theme);
+}
+
+header > nav > a:first-child {
+  display: inherit;
+  margin: 0 auto 0 0;
+}
+
+header > nav > a:first-child > span {
+  color: #ffffff60;
+  margin: -13px 0 0 -10px;
+}
+
+header > nav > a:first-child:hover {
+  border-color: #0000;
+}
+
+header > nav > a:last-child {
+  background-color: #ffffff08;
+  border-radius: 25px;
+  padding: 6px 20px;
+}
+
+header > nav > a:last-child:hover {
+  background-color: var(--color-theme);
+  border-color: #0000;
+  color: var(--color-background);
+}
+
+/* 
+  main
+*/
+
+main {
+  margin: auto;
+  max-width: var(--section-width);
+}
+
+main {
+  padding: var(--section-gap);
+}
+
+/* 
+  footer
+*/
+
+footer > nav {
+  margin: auto;
+  max-width: var(--section-width);
+}
+
+footer > nav {
+  padding: var(--section-gap);
+}
+
+footer > nav {
+  display: flex;
+  gap: var(--section-gap);
+  place-items: center baseline;
+}
+
+footer > nav > a {
+  border: 2px solid;
+  border-color: #0000;
+}
+
+footer > nav > a:hover {
+  border-color: #0000 #0000 var(--color-theme);
+}
+
+footer > nav > span {
+  color: #ffffff60;
+  margin: 0 0 0 auto;
+}
+
+/* 
+  media queries
+*/
+
+@media (max-width: 720px) {
+  header > nav {
+    display: grid;
+    grid-template: auto / 1fr auto;
+    place-items: center;
   }
-  10% {
-    transform: translate(-5%, -5%);
+
+  .visible > a {
+    display: grid;
   }
-  20% {
-    transform: translate(-10%, 5%);
+
+  .visible > svg {
+    color: #ffffff60;
   }
-  30% {
-    transform: translate(5%, -10%);
+
+  header > nav > svg {
+    display: grid;
+    grid-column: 2 / 3;
   }
-  40% {
-    transform: translate(-5%, 15%);
+
+  header > nav > a:first-child {
+    display: flex;
+    grid-column: 1 / 2;
   }
-  50% {
-    transform: translate(-10%, 5%);
+
+  header > nav > a {
+    display: none;
+    grid-column: 1;
   }
-  60% {
-    transform: translate(15%, 0);
+
+  footer > nav {
+    display: grid;
   }
-  70% {
-    transform: translate(0, 10%);
-  }
-  80% {
-    transform: translate(-15%, 0);
-  }
-  90% {
-    transform: translate(10%, 5%);
-  }
-  100% {
-    transform: translate(5%, 0);
+
+  footer > nav > span {
+    margin: 0;
   }
 }
 </style>
